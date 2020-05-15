@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta charset="UTF-8">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify/themes/vue.css">
+  <style>
+    .app-name { 
+      padding: 25px;
+    }
+    .content .markdown-section {
+      width: 85%;
+      max-width: 1000px;
+    }
+  </style>
 </head>
 <body>
   <div data-app id="main">Please wait...</div>
@@ -13,6 +22,7 @@
       el: '#main',
       loadSidebar: true,
       logo: '/_media/asl_logo_black.png',
+      name: "Artscilab Technical Documentation"
     }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
