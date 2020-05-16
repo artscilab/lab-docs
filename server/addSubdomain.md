@@ -8,13 +8,21 @@ The first step will be to add the name of the desired subdomain as an A-Record o
 Follow the following steps:
 
 1. Login to DigitalOcean. You'll need to be added onto the ArtSciLab account. 
+
 2. Use the profile picture button on the top right to switch to the ArtSciLab account.
+
 3. Click on `Networking` on the left-hand sidebar. 
+
 4. In the list of domains, click on the domain name you want to create the subdomain for. I'll use `atec.io` in this guide.
+
 5. Under `Create new record`, find the `Hostname` text input, and enter the subdomain. As you type, you'll see the text under the input change to show you the resulting URL. If you enter "subdomain" it will show you "subdomain.atec.io".
+
 6. Click on the box labeled `Will direct to` and choose the droplet you want it to direct to. Usually it's going to be atec.io. 
+
 7. Leave the TTL as it is, unless you know what you are doing and want to change it. 
+
 8. Click on the blue Create Record button. 
+
 9. That sets up the domain name and lets DigitalOcean know to direct traffic at that address to the server.
 
 ## Step 2
@@ -31,16 +39,25 @@ The next thing to do is set up the nginx configuration. We have the configuratio
 
 To set up a config file for the new site, follow these steps:
 1. SSH into the server.
+
 2. The nginx config as found at that repo is at `/etc/nginx/`. `cd` there.
+
 3. `cd` into `sites-available/`. This is where you can make new configurations without enabling them yet. (There will later be a symbolic link to a file here from `sites-enabled/` that will enable it)
+
 4. The easiest way to set up a new subdomain config is to copy over one that already exists and change a few things. To set up something like a node.js app, we can use a copy of either `artscilab.atec.io.conf` or `ablb.atec.io.conf` since both of those are node.js reverse-proxies. For this example, I'll use `ablb.atec.io.conf`.
 
     > A reverse proxy refers to setting up an app as a process running a port, routing traffic from the source to the app, and routing the response back to the client. Read more about it [here](https://www.keycdn.com/support/nginx-reverse-proxy). 
+
 5. Copy `ablb.atec.io.conf` to your new `subdomain.atec.io.conf`. Go inside it and change every occurrence of "ablb" to your new subdomain. 
+
 6. You can see that in this file, the server block contains a couple of `location` blocks which specify specific specific routes that need to handled. The first one, `location /.well-known` points to the ".well-known" folder inside the webroot. This is a special directory that you'll need for the SSL process. Make sure it's pointing to the right webroot. 
+
 7. The second one, `location /` lets all requests go to the app you want to run. Inside the block, change `http://localhost:8001` to the port your app is running on. Choose a port for your app that isn't taken. Currently you'll have to look through all the configs to find one, but that will change soon. For now, there's a lot of numbers out there. 
+
 8. The last block, `location ~ /\.ht` block all requests to anything starting with `ht` or `.ht`.
+
 9. The rest of the server block is pretty self explanatory, just make sure your subdomain is in all the right places instead of the subdomain of the file you copied from. 
+
 10. Because of the next step, wait to change the `ablb.atec.io` in the two lines beginning with `ssl_certificate` and `ssl_certificate_key`. They won't be valid, but the existence of them will let us generate new keys and then we can come back and put in the right path. 
 
 !> Once you're done with these steps, make sure that the config is correct, and still works by running the command `nginx -t`. The `-t` switch runs the test, and the output should tell you whether the new config works, or list any problems with. If anything is wrong, Google is a friend. 
@@ -56,7 +73,9 @@ To begin, you can see the existing certificates when logged in as root, with the
 
 To create the certificate for your new subdomain, first run the following command, but put your webroot and domain name where they go. The `-w` flag is followed by the webroot, and the `-d` flag is followed by the domain name. 
 
-```certbot certonly --webroot -w /var/www/ablb.atec.io/html/ -d ablb.atec.io --dry-run```
+```bash
+$ certbot certonly --webroot -w /var/www/ablb.atec.io/html/ -d ablb.atec.io --dry-run
+```
 
 This only runs a dry run, which is important because the Let's Encrypt service has very low rate limits for actual requests, and the dry run is a way to test our configuration without hitting those rate limits. 
 
