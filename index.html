@@ -23,6 +23,10 @@
     .markdown-section pre > code{ 
       font-size: 14px;
     }
+    .mermaid .edgeLabel {
+      padding: 5px;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -31,10 +35,32 @@
     window.$docsify = {
       el: '#main',
       loadSidebar: true,
+      subMaxLevel: 1,
       logo: '/_media/asl_logo_black.png',
-      name: "Artscilab Technical Documentation"
+      name: "Artscilab Technical Documentation",
+      plugins: [
+      (hook, vm) => {
+          hook.beforeEach((html) => {
+            if (/githubusercontent\.com/.test(vm.route.file)) {
+              url = vm.route.file
+                .replace('raw.githubusercontent.com', 'github.com')
+                .replace(/\/master/, '/blob/master')
+            } else {
+              url = 'https://github.com/artscilab/lab-docs/blob/master/' + vm.route.file
+            }
+            const editHtml = `\n\n:memo: [Edit this page](${url})\n`
+
+            return html + editHtml
+          })
+        }
+      ]
     }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-javascript.min.js"></script>
+  <script src="//unpkg.com/mermaid/dist/mermaid.js"></script>
+  <script src="//unpkg.com/docsify-mermaid@latest/dist/docsify-mermaid.js"></script>
+  <script>mermaid.initialize({ startOnLoad: true });</script>
 </body>
 </html>

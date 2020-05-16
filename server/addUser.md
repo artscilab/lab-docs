@@ -5,7 +5,7 @@ This guide walk you through adding a new user to the server.
 You'll also need to have sudo access to the server already in order to do it. Log into the server and follow the steps below. 
 
 
-## Part 1: Creating the user
+# Creating the user
 
 1.  Create a new user
   
@@ -35,7 +35,7 @@ You'll also need to have sudo access to the server already in order to do it. Lo
     $ sudo ls -al /root
   ```
 
-## Part 2: Adding SSH accesss
+# Adding SSH accesss
 
 1. Switch to the new user 
 

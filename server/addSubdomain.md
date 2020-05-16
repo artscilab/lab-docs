@@ -2,7 +2,7 @@
 
 This guide aims to help you add a subdomain to atec.io. It involves messing with configuration files on our server, so you'll need ssh access to it. You'll also need access to the lab's DigitalOcean team. Don't attempt this without reading through the guides linked at the bottom of this, and make sure you know what you are doing terminal-wise.
 
-## Step 1
+# Register the subdomain
 The first step will be to add the name of the desired subdomain as an A-Record on DigitalOcean. 
 
 Follow the following steps:
@@ -25,7 +25,7 @@ Follow the following steps:
 
 9. That sets up the domain name and lets DigitalOcean know to direct traffic at that address to the server.
 
-## Step 2
+# Create the webroot
 The next thing we want to do is create a directory on the server to be the webroot of the project.
 First, ssh into the server, and head to `/var/www/`.
 If you run an `ls` here, you'll see folders for all the sites that we have. 
@@ -34,7 +34,7 @@ Create a new folder for your subdomain using `mkdir`. By default, the new folder
 
 Change the group of your new folder to `www-data` by running `chgrp www-data <folder name>`. Create another folder inside that called `html` and change it's group to `www-data` as well. That folder is the actual webroot, and is where the static or php website should be served from. This is by lab convention.  
 
-## Step 3
+# Nginx configuration
 The next thing to do is set up the nginx configuration. We have the configuration on github, at [artscilab/nginx-config](https://github.com/artscilab/nginx-config). 
 
 To set up a config file for the new site, follow these steps:
@@ -64,7 +64,7 @@ To set up a config file for the new site, follow these steps:
 
 Once it reports no problems with the config, `service nginx restart` will restart the nginx service and the new config will be loaded in. Make sure all the sites are actually online as well, by visiting one of our websites. It's really easy to miss a step and accidentally reload the service on a broken config, which will mean our sites are unaccessible. 
 
-# Step 4
+# SSL Certificates
 The last step is the SSL certificates for the new subdomain.
 
 We use Let's Encrypt to create our certificates, and the server has their `certbot` utility installed. A read through their documentation is a good idea. 
