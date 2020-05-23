@@ -23,3 +23,7 @@ React router enables easy, declarative routing, and Formik enables easy creation
 Other than those two libraries, the front-end is set up to be pretty easily editable, with typical React components and not much specialized logic. 
 
 One thing to note is the way we authenticate with the server. Our axios instance passes a authorization token header with each request. This token is a JWT, and you can read more about that in the authentication part of the backend section.
+
+--- 
+
+Contributors: Al Madireddy
