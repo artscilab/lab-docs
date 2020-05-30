@@ -16,4 +16,6 @@
     - [Set up local development](/projects/cd/localDevelopment.md "CD local development")
   - ABLB
     - [Getting Started](/projects/ablb/ "ABLB")
+  - HERMES
+    - [About HERMES](/projects/hermes/ "HERMES")
 
