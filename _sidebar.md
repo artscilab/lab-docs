@@ -6,6 +6,7 @@
   - [Server Filesystem](/server/filesystem.md "Server Filesystem")
   - [Adding a user to the server](/server/addUser.md "Adding a user")
   - [Adding a subdomain to atec.io](/server/addSubdomain.md "Adding a subdomain")
+  - [Renew Certificates](/server/renewCertificates.md "Renew Certificates")
 
 - Projects
   - ArtSciLab
