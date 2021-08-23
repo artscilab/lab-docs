@@ -12,6 +12,7 @@
   - ArtSciLab
     - [Getting started](/projects/artscilab/ "ArtSciLab")
     - [Set up local development](/projects/artscilab/localDevelopment.md "ArtSciLab local development")
+    - [Common Errors](/projects/artscilab/commonErrors.md)
   - Creative Disturbance
     - [Getting Started](/projects/cd/ "Creative Disturbance")
     - [Set up local development](/projects/cd/localDevelopment.md "CD local development")
