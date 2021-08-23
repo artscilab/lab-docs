@@ -14,19 +14,20 @@ Like Creative Disturbance, we use the Pods plugin to create custom content types
 
 The installation lives in the `atec.io` network installation, at [dev.atec.io](https://dev.atec.io). The reason for the name "dev" is that it used to be an actual development site, before the decision was made to use this architecture. Because the actual name of the site that serves the API doesn't matter, it was left as-is.
 
-### Internal Server Error (500)
-
-Although there can be several reasons for this error, most of the times it occurs due to 100% disk quota usages in DigitalOcean server. To fix this:
-- Login to server using ssh
-- Delete backups in `/var/cdBackup/db/backupFiles` except last few.
-- Restart the server suing `sudo service nginx restart`
-- It will take few minutes to get website up and running again!
-
 ## Frontend 
 
 The frontend, as mentioned, is written using [Next.js](https://nextjs.org/). Next.js allows us to write pages as React components. They're rendered on the server before being sent to the user, which allows for decent SEO out of the box. 
 
+The frontend is version controlled using [GitHub](https://github.com/artscilab/artscilab), for both test and production environment.
+
+### Test Environemnt
+
+Test environemnt on Heoku is directly connected to GitHub for deployment. Pushing new commit auto-deploys website on Heroku. This deployment is not the one served on [ArtSciLab Main Website](https://artscilab.atec.io/) but is just as a concept and can be found [here](https://artsci-concept.herokuapp.com/).
+
+### Production Environemnt
+
+For production environemnt, to serve actual ArtSciLab website we use [PM2](https://pm2.keymetrics.io/) on the digital ocean server. It also uses [GitHub](https://github.com/artscilab/artscilab) code.
 
 ---
 
-Contributors: Al Madireddy
+Contributors: Al Madireddy, Omkar Ajnadkar
